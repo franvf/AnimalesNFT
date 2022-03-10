@@ -12,7 +12,7 @@ class index extends Component {
     async loadWeb3(){
         if(window.ethereum){
             window.web3 = new Web3(window.ethereum)
-            await window.ethereum.enable()
+            await window.ethereum.request({ method: 'eth_requestAccounts' })
         } else if(window.web3){
             window.web3 = Web3(window.web3.currentProvider)
         } else {
@@ -128,14 +128,14 @@ class index extends Component {
                     <br></br>
                     <form onSubmit={(event) => {
                         event.preventDefault()
-                        const holder = this.holder.value
-                        this.addUserToWhitelist(holder)
+                        const address = this.address.value
+                        this.addUserToWhitelist(address)
                     }}>
 
                         <input type="text"
                             className="form-control mb-1"
                             placeholder="Holder address"
-                            ref={(input) => this.holder = input} />
+                            ref={(input) => this.address = input} />
 
                         <input type="submit"
                             className='bbtn btn-block btn-success btn-sm'
@@ -145,9 +145,9 @@ class index extends Component {
 
                     <form onSubmit={(event) => {
                         event.preventDefault()
-                        const index = this.id.value
+                        const id = this.id.value
                         const holder = this.holder.value
-                        this.giveaway(id, amount)
+                        this.giveaway(id, holder)
                     }}>
 
                         <input type="text"
