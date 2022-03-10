@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
-import { Divider, Form, Segment, Image, Menu } from 'semantic-ui-react';
 import Web3 from 'web3';
 import collection from '../abis/collection.json';
-import image from '../img/NFT.png'
-import logo from '../img/logo.png'
 
-class presale extends Component {
+class index extends Component {
 
-    async componentWillMount(){
+    async componentDidMount(){
+        await this.loadWeb3()
         await this.loadBlockchainData()
-        document.body.style.backgroundColor = "#1b1c1d"
     }
 
     async loadWeb3(){
@@ -28,12 +25,12 @@ class presale extends Component {
 
         const accounts = await web3.eth.getAccounts()
         this.setState({account: accounts[0]}) //current account
-        const networkId = 5777
+        const networkId = 4
         const networkData = collection.networks[networkId]
 
         if(networkData) {
             const abi = collection.abi
-            const address = networkData.address
+            const address = "0x6C15f70a1b88136234Ecf382317989D5c33D1E9C"
             const contract = new web3.eth.Contract(abi, address)
 
             this.setState({contract})
@@ -49,14 +46,37 @@ class presale extends Component {
         this.state = {
             account: "",
             address: "",
-            contract: null
+            contract: null,
         }
     }
 
-    mintOnPresale = async() => {
+    mint = async(tokenId, amount) => {
+       try{
+            await this.state.contract.methods.mint(tokenId, amount).send({from: this.state.account})
+       } catch(err){
+           console.log(err)
+       }
+    }
+
+    setURI = async(newURI) => {
+        try{
+            await this.state.contract.methods.setURI(newURI).send({from: this.state.account})
+        } catch (err){
+            console.log(err)
+        }
+    }
+
+    addUserToWhitelist = async(holder) => {
+        try{
+            await this.state.contract.methods.addUserToWhitelist(holder).send({from: this.state.account})
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    giveaway = async(tokenId, address) => {
         try {
-            const web3 = window.web3
-            await this.state.contract.methods.mintInWhitelist().send({from: this.state.account, value: web3.utils.toWei("0.01")})
+            await this.state.contract.methods.giveaway(tokenId, address).send({from:this.state.account})
         } catch(err) {
             console.log(err)
         }
@@ -64,33 +84,90 @@ class presale extends Component {
 
     render() {
         return(
-            <Segment inverted textAlign='center' >
-                <Menu.Item inverted>
-                    <Image src={logo} size="small" as='a' href='http://vivatopia.es' floated='left'/> 
-                </Menu.Item>
-                
-                <Form inverted onSubmit={(event) => {
+
+            <div className = "flex justify-center">
+                <div className = "w-1/2 flex flex-col pb-12">
+                    <form onSubmit={(event) => {
                         event.preventDefault()
-                        this.loadWeb3()
+                        const tokenId = this.tokenId.value
+                        const amount = this.amount.value
+                        this.mint(tokenId, amount)
                     }}>
-                        <Form.Button basic color='purple'> Connect wallet </Form.Button>
-                    </Form>
-                
-                <br></br>
-                <Divider horizontal inverted>AND</Divider>
-                <br></br>
-               
-                <Image src={image} size='small' rounded centered/> 
-                <br></br>
-                
-                <Form onSubmit={(event) => {
-                    event.preventDefault()
-                    this.mintOnPresale()
-                }}>
-                    <Form.Button basic color='pink' > Mint </Form.Button>
-                </Form>                
-            </Segment>
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder="TokenId"
+                            ref={(input) => this.tokenId = input} />
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder='Amount'
+                            ref={(input) => this.amount = input} />
+
+                        <input type="submit"
+                            className='bbtn btn-block btn-danger btn-sm'
+                            value="Mint item" />
+                    </form>
+                    <br></br>
+                    
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        const newURI = this.newURI.value
+                        this.setURI(newURI)
+                    }}>
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder='new URI'
+                            ref={(input) => this.newURI = input} />
+
+                        <input type="submit"
+                            className='bbtn btn-block btn-success btn-sm'
+                            value="Modify URI" />
+                    </form>
+                    <br></br>
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        const holder = this.holder.value
+                        this.addUserToWhitelist(holder)
+                    }}>
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder="Holder address"
+                            ref={(input) => this.holder = input} />
+
+                        <input type="submit"
+                            className='bbtn btn-block btn-success btn-sm'
+                            value="Add to whitelist" />
+                    </form>
+                    <br></br>
+
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        const index = this.id.value
+                        const holder = this.holder.value
+                        this.giveaway(id, amount)
+                    }}>
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder="TokenId"
+                            ref={(input) => this.id = input} />
+
+                        <input type="text"
+                            className="form-control mb-1"
+                            placeholder='holder'
+                            ref={(input) => this.holder = input} />
+
+                        <input type="submit"
+                            className='bbtn btn-block btn-danger btn-sm'
+                            value="Giveaway" />
+                    </form>
+                   
+                </div>
+            </div>
         )
     }
 
-} export default presale
+} export default index
