@@ -1,0 +1,11 @@
+{
+    "attributes": [
+      {
+        "trait_type": "First animal",
+        "value": "Blue"
+      }
+    ],
+    "description": "This is the collection about animals",
+    "image": "https://ipfs.io/ipfs/QmS9ZYUUGo6AC39Mp2ysdvCeNoKJ4gcfVAPXDzvryK4jec",
+    "name": "Animal #001"
+  }

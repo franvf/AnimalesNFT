@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
+import { Divider, Form, Segment, Image, Menu } from 'semantic-ui-react';
 import Web3 from 'web3';
 import collection from '../abis/collection.json';
+import image from '../img/NFT.png'
+import logo from '../img/logo.png'
 
-class index extends Component {
+class presale extends Component {
 
     async componentWillMount(){
-        await this.loadWeb3()
         await this.loadBlockchainData()
+        document.body.style.backgroundColor = "#1b1c1d"
     }
 
     async loadWeb3(){
@@ -46,29 +49,14 @@ class index extends Component {
         this.state = {
             account: "",
             address: "",
-            contract: null,
+            contract: null
         }
     }
 
-    mint = async(tokenId, amount) => {
-       try{
-            await this.state.contract.methods.mint(tokenId, amount).send({from: this.state.account})
-       } catch(err){
-           console.log(err)
-       }
-    }
-
-    setURI = async(newURI) => {
-        try{
-            await this.state.contract.methods.setURI(newURI).send({from: this.state.account})
-        } catch (err){
-            console.log(err)
-        }
-    }
-
-    addUserToWhitelist = async(holder) => {
-        try{
-            await this.state.contract.methods.addUserToWhitelist(holder).send({from: this.state.account})
+    mintOnPresale = async() => {
+        try {
+            const web3 = window.web3
+            await this.state.contract.methods.mintInWhitelist().send({from: this.state.account, value: web3.utils.toWei("0.01")})
         } catch(err) {
             console.log(err)
         }
@@ -76,81 +64,33 @@ class index extends Component {
 
     render() {
         return(
-            <div className = "flex justify-center">
-                <div className = "w-1/2 flex flex-col pb-12">
-                    <form onSubmit={(event) => {
+            <Segment inverted textAlign='center' >
+                <Menu.Item inverted>
+                    <Image src={logo} size="small" as='a' href='http://vivatopia.es' floated='left'/> 
+                </Menu.Item>
+                
+                <Form inverted onSubmit={(event) => {
                         event.preventDefault()
-                        const tokenId = this.tokenId.value
-                        const amount = this.amount.value
-                        this.mint(tokenId, amount)
+                        this.loadWeb3()
                     }}>
-
-                        <input type="text"
-                            className="form-control mb-1"
-                            placeholder="TokenId"
-                            ref={(input) => this.tokenId = input} />
-
-                        <input type="text"
-                            className="form-control mb-1"
-                            placeholder='Amount'
-                            ref={(input) => this.amount = input} />
-
-                        <input type="submit"
-                            className='bbtn btn-block btn-danger btn-sm'
-                            value="Mint item" />
-                    </form>
-                    <br></br>
-                    
-                    <form onSubmit={(event) => {
-                        event.preventDefault()
-                        const newURI = this.newURI.value
-                        this.setURI(newURI)
-                    }}>
-
-                        <input type="text"
-                            className="form-control mb-1"
-                            placeholder='new URI'
-                            ref={(input) => this.newURI = input} />
-
-                        <input type="submit"
-                            className='bbtn btn-block btn-success btn-sm'
-                            value="Modify URI" />
-                    </form>
-                    <br></br>
-                    <form onSubmit={(event) => {
-                        event.preventDefault()
-                        const holder = this.holder.value
-                        this.addUserToWhitelist(holder)
-                    }}>
-
-                        <input type="text"
-                            className="form-control mb-1"
-                            placeholder="Holder address"
-                            ref={(input) => this.holder = input} />
-
-                        <input type="submit"
-                            className='bbtn btn-block btn-success btn-sm'
-                            value="Add to whitelist" />
-                    </form>
-                    <br></br>
-                    <form onSubmit={(event) => {
-                        event.preventDefault()
-                        const idtkn = this.idtkn.value
-                        this.mintOnPresale(idtkn)
-                    }}>
-
-                        <input type="text"
-                            className="form-control mb-1"
-                            placeholder="TokenId"
-                            ref={(input) => this.idtkn = input} />
-
-                        <input type="submit"
-                            className='bbtn btn-block btn-success btn-sm'
-                            value="Mint on presale" />
-                    </form>
-                </div>
-            </div>
+                        <Form.Button basic color='purple'> Connect wallet </Form.Button>
+                    </Form>
+                
+                <br></br>
+                <Divider horizontal inverted>AND</Divider>
+                <br></br>
+               
+                <Image src={image} size='small' rounded centered/> 
+                <br></br>
+                
+                <Form onSubmit={(event) => {
+                    event.preventDefault()
+                    this.mintOnPresale()
+                }}>
+                    <Form.Button basic color='pink' > Mint </Form.Button>
+                </Form>                
+            </Segment>
         )
     }
 
-} export default index
+} export default presale
