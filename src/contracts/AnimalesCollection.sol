@@ -57,7 +57,7 @@ contract collection is ERC1155 {
     }
 
     function mintInWhitelist() public whitelistHolder() payable returns(uint) {
-        require(msg.value >= 0.01 ether, "Introduce the correct price");    
+        require(msg.value >= 0.01 ether, "Introduce the correct price"); 
 
         uint tokenId = 0;
         address payable to = payable(owner);

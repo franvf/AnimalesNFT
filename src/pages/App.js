@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Header from './Header';
-import Index from './index';
 import Presale from './presale'
 import 'semantic-ui-css/semantic.min.css';
 
@@ -14,8 +13,7 @@ class App extends Component {
           <Header />
           <main>
             <Routes>
-              <Route exact path="/" element={<Index />}/>
-              <Route exact path="/presale" element={<Presale />}/>
+              <Route exact path="/" element={<Presale />}/>
             </Routes>
           </main>
         </container>

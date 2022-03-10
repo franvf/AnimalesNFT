@@ -33,7 +33,7 @@ class presale extends Component {
 
         if(networkData) {
             const abi = collection.abi
-            const address = "0x6C15f70a1b88136234Ecf382317989D5c33D1E9C"
+            const address = "0x7568510A2693621D72606B6A2a06079B608791F3"
             const contract = new web3.eth.Contract(abi, address)
 
             this.setState({contract})
