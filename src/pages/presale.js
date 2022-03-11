@@ -7,9 +7,9 @@ import image from '../img/NFT.png'
 class presale extends Component {
 
     async componentDidMount(){
+        document.body.style.backgroundColor = "#1b1c1d"
         await this.loadWeb3()
         await this.loadBlockchainData()
-        document.body.style.backgroundColor = "#1b1c1d"
     }
 
     async loadWeb3(){
@@ -28,12 +28,12 @@ class presale extends Component {
 
         const accounts = await web3.eth.getAccounts()
         this.setState({account: accounts[0]}) //current account
-        const networkId = 4
+        const networkId = 137
         const networkData = collection.networks[networkId]
 
         if(networkData) {
             const abi = collection.abi
-            const address = "0x7568510A2693621D72606B6A2a06079B608791F3"
+            const address = "0x2bebB85AA18E50070397F202DbFba6f2B73aC8B4"
             const contract = new web3.eth.Contract(abi, address)
 
             this.setState({contract})

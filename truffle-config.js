@@ -24,7 +24,7 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const mnemonic = "inch brain trade hard such popular armed quality lobster plunge session crush"
+const mnemonic = "spirit west grass announce become guilt joke wedding orient junior marble renew"
 
 
 module.exports = {
@@ -56,6 +56,13 @@ module.exports = {
       network_id: 4,
       gas: 4500000,
       gasPrice: 10000000000
+    },
+
+    polygon: {
+      provider: () => new HDWalletProvider(mnemonic, "https://polygon-mainnet.infura.io/v3/d348c1a39eae41a6902c23908923d458"),
+      network_id: 137,
+      gas: 4500000,
+      gasPrice: 35000000000
     }
     // Another network with more advanced options...
     // advanced: {

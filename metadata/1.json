@@ -1,11 +1,14 @@
 {
     "attributes": [
       {
-        "trait_type": "First animal",
-        "value": "Blue"
+        "trait_type": "Species",
+        "value": "Bird of prey"
+      },
+      {
+        "trait_type": "Amount",
+        "value": "1119"
       }
     ],
-    "description": "This is the collection about animals",
-    "image": "https://ipfs.io/ipfs/QmesFZH8w3ewp1n7UVjEgojhTHZpTtUQXPqbDH83sAhf24",
-    "name": "Animal #001"
+    "image": "https://gateway.pinata.cloud/ipfs/QmesFZH8w3ewp1n7UVjEgojhTHZpTtUQXPqbDH83sAhf24",
+    "name": "Quebrantahuesos #0001"
   }
