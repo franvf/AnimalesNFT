@@ -28,7 +28,7 @@ class presale extends Component {
 
         const accounts = await web3.eth.getAccounts()
         this.setState({account: accounts[0]}) //current account
-        const networkId = 4
+        const networkId = 137
         const networkData = collection.networks[networkId]
 
         if(networkData) {
