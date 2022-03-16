@@ -57,7 +57,7 @@ module.exports = {
     },
 
     polygon: {
-      provider: () => new HDWalletProvider(mnemonic, "https://polygon-mainnet.infura.io/v3/d348c1a39eae41a6902c23908923d458"),
+      provider: () => new HDWalletProvider(mnemonic, "https://polygon-mainnet.infura.io/v3/13bd08641019488ba84e0ce0f3b91430"),
       network_id: 137,
       gas: 4500000,
       gasPrice: 35000000000

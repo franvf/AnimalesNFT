@@ -25,12 +25,12 @@ class index extends Component {
 
         const accounts =  await ethereum.request({ method: 'eth_accounts' });
         this.setState({account: accounts[0]}) //current account
-        const networkId = 5777
+        const networkId = 4
         const networkData = collection.networks[networkId]
 
         if(networkData) {
             const abi = collection.abi
-            const address = "0x934da75E9B737Eb7f68ED1907306442f3996BB21"
+            const address = "0x9607f41384207f4672C9932560BA3457c7420B2a"
             const contract = new web3.eth.Contract(abi, address)
 
             this.setState({contract})
@@ -187,8 +187,7 @@ class index extends Component {
                         <input type="submit"
                             className='bbtn btn-block btn-success btn-sm'
                             value="Set Owner" />
-                    </form>
-                   
+                    </form>                   
                 </div>
             </div>
         )

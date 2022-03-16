@@ -61,11 +61,11 @@ contract collection is ERC1155, Ownable {
         uint tokenId = 0;
         address payable to = payable(owner());
 
-        if(block.timestamp >= 1647126000 && block.timestamp <= 1647385200){ // Date between 13/03 and 15/03
+        if(block.timestamp >= 1647619200 && block.timestamp <= 1647817200){ // 18, 19, 20 march
             tokenId = 1;
-        } else if(block.timestamp >= 1648335600 && block.timestamp <= 1648591200){ // Date between 27/03 and 30/03
+        } else if(block.timestamp >= 1648677600 && block.timestamp <= 1648936800){ //31, 1, 2 april
             tokenId = 2;
-        } else if(block.timestamp >= 1648936800 && block.timestamp <= 1649196000){ //Date between 03/04 and 06/04
+        } else if(block.timestamp >= 1649887200 && block.timestamp <= 1650146400){ // 14,15,16 april
             tokenId = 3;
         }
 
@@ -81,10 +81,6 @@ contract collection is ERC1155, Ownable {
 
     function contractURI() public view returns(string memory){
         return _contractURI;
-    }
-
-    function setContractURI(string memory newContractURI) public onlyOwner() {
-        _contractURI = newContractURI;
     }
 
 }
