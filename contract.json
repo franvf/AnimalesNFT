@@ -1,7 +1,0 @@
-{
-    "name": "New collection name.",
-    "description": "Description",
-    "image": "https://gateway.pinata.cloud/ipfs/QmesFZH8w3ewp1n7UVjEgojhTHZpTtUQXPqbDH83sAhf24",
-    "seller_fee_basis_points": 1000, 
-    "fee_recipient": "0x573d1c2260964F30123468b6716dA30d2c24594E"
-  }
