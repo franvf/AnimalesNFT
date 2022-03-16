@@ -20,12 +20,10 @@
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const mnemonic = "spirit west grass announce become guilt joke wedding orient junior marble renew"
-
 
 module.exports = {
   /**

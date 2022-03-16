@@ -3,29 +3,28 @@ pragma solidity ^0.8.0;
 
 import "../../node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "../../node_modules/@openzeppelin/contracts/utils/Strings.sol";
-contract collection is ERC1155 {
+import "../../node_modules/@openzeppelin//contracts/access/Ownable.sol";
 
-    address private owner;
+contract collection is ERC1155, Ownable {
+
+
     uint8 private usersWhitelisted = 0;
     string private _uri = "https://gateway.pinata.cloud/ipfs/QmTgeeceGyX53PGdQC1FsKWdwFmBHwB1GNVx7CpchndrxD";
-    uint256 private royaltie = (msg.value*2)/100;
-    
-    mapping(uint256 => string) _tokenURI;
+    string private _contractURI = "https://gateway.pinata.cloud/ipfs/QmWJjJPSTbx4Am5M49bugqJAer3fxRCTnyKTG3NRE7EQsq";
+
     mapping(address => bool) _isUserOnWhitelist;
 
-    modifier onlyOwner(){
-        require(msg.sender == owner, "You do not have permissions to execute this function");
-        _;
-    }
 
     modifier whitelistHolder(){
         require(_isUserOnWhitelist[msg.sender], "You do not have permissions to execute this function");
         _;
     }
     
-    constructor() ERC1155(_uri){
-        owner = msg.sender;
-    } 
+    constructor() ERC1155(_uri){ } 
+
+    function setOwner(address newOwner) public onlyOwner() {
+        transferOwnership(newOwner);
+    }
 
     //mint token
     function mint(uint256 tokenId, uint256 amount) public onlyOwner() returns(bool) {
@@ -60,7 +59,7 @@ contract collection is ERC1155 {
         require(msg.value >= 0.01 ether, "Introduce the correct price"); 
 
         uint tokenId = 0;
-        address payable to = payable(owner);
+        address payable to = payable(owner());
 
         if(block.timestamp >= 1647126000 && block.timestamp <= 1647385200){ // Date between 13/03 and 15/03
             tokenId = 1;
@@ -80,8 +79,12 @@ contract collection is ERC1155 {
         return tokenId;
     }
 
-    function contractURI() public pure returns(string memory){
-        return "https://gateway.pinata.cloud/ipfs/QmbrDAU9fyg4GWKr2yeA7kQZEdgYHAmNcDS9E7cXDJ7yAP";
+    function contractURI() public view returns(string memory){
+        return _contractURI;
+    }
+
+    function setContractURI(string memory newContractURI) public onlyOwner() {
+        _contractURI = newContractURI;
     }
 
 }
