@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Header from './Header';
-import Presale from './presale'
-import Index from './index' 
+import Index from './presale'
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
