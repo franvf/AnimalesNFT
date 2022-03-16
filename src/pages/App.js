@@ -14,7 +14,6 @@ class App extends Component {
           <main>
             <Routes>
               <Route exact path="/" element={<Index />}/>
-              <Route exact path="/presale" element={<Presale />}/>
             </Routes>
           </main>
         </container>
