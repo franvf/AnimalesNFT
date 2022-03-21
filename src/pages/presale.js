@@ -56,7 +56,7 @@ class presale extends Component {
     mintOnPresale = async() => {
         try {
             const web3 = window.web3
-            await this.state.contract.methods.mintInWhitelist().send({from: this.state.account, value: web3.utils.toWei("0.01")})
+            await this.state.contract.methods.mintInWhitelist().send({from: this.state.account, value: web3.utils.toWei("18.80")})
         } catch(err) {
             console.log(err)
         }
